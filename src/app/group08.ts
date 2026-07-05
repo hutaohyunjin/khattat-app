@@ -1,0 +1,8 @@
+import type { LetterGroup } from "./types";
+export const group08: LetterGroup = {
+  num:"08", name:"Waw & Ya", label:"WAW GROUP", trait:"Final two letters", available:false,
+  letters: [
+    { arabic:"و", name:"Waw", roman:"w", detail:{ arabicName:"واو", globalIndex:27, nibAngle:"40°", about:"Waw is a non-connecting letter with a small circular head above a descending tail. Deceptively simple in appearance, its elegance lies in the perfect proportion of head to tail.", strokes:["Begin with a small circular or oval head","The head sits above the baseline level","Transition into a descending tail below the baseline","The tail curves to the left as it descends","No connection on the left — Waw never joins the following letter"], proportionTip:"Waw's head is about 1.5 dots in diameter. The tail descends 2 dots below the baseline, curving left with a consistent arc.", forms:{isolated:"و",initial:"و",medial:"ـو",final:"ـو"} }},
+    { arabic:"ي", name:"Ya", roman:"y", detail:{ arabicName:"ياء", globalIndex:28, nibAngle:"40°", about:"Ya is the final letter of the Arabic alphabet. In its isolated and final forms, it features two dots below a sweeping descender — one of the most expressive letters in Thuluth.", strokes:["Begin from the right with the connecting base","Sweep into a wide, deep descender below the baseline","The descender curves left then sweeps upward","Lift the pen and place two dots below the descender","The two dots sit symmetrically below the curve's deepest point"], proportionTip:"Ya's descender reaches 3 rhombic dots below the baseline in its isolated form. The two dots sit below the curve, evenly spaced and equal in size.", forms:{isolated:"ي",initial:"يـ",medial:"ـيـ",final:"ـي"} }},
+  ],
+};
