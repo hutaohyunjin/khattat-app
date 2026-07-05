@@ -1,7 +1,7 @@
 import { Lock } from "lucide-react";
 import { O, DK, MU, BR, F } from "./tokens";
 import { RANKS } from "./data";
-import { Card } from "./App";
+import { Card } from "./ui";
 
 export function RanksView({ curr }: { curr: typeof RANKS[0] }) {
   return (

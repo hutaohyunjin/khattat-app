@@ -1,7 +1,7 @@
 import { Lock, ArrowRight } from "lucide-react";
 import { O, DK, MU, BR, F } from "./tokens";
 import { RANKS, LESSONS, USER_XP, USER_DONE } from "./data";
-import { Card, XpBadge } from "./App";
+import { Card, XpBadge } from "./ui";
 import type { Tab } from "./types";
 
 export function HomeView({ curr, next, pct, onNav }: { curr:typeof RANKS[0]; next:typeof RANKS[0]; pct:number; onNav:(t:Tab)=>void }) {
@@ -29,9 +29,7 @@ export function HomeView({ curr, next, pct, onNav }: { curr:typeof RANKS[0]; nex
             <div style={{ fontFamily:F.display, fontSize:30, fontWeight:700, color:DK, lineHeight:1 }}>{curr.level}</div>
           </div>
         </div>
-        <div style={{ height:3, background:BR, borderRadius:2 }}>
-          <div style={{ height:"100%", width:`${pct}%`, background:O, borderRadius:2 }} />
-        </div>
+        <div style={{ height:3, background:BR, borderRadius:2 }}><div style={{ height:"100%", width:`${pct}%`, background:O, borderRadius:2 }} /></div>
         <div style={{ display:"flex", justifyContent:"space-between", marginTop:8, fontFamily:F.mono, fontSize:10, color:MU }}>
           <span>{USER_XP} XP</span><span>{next.xp} XP</span>
         </div>

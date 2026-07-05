@@ -3,17 +3,14 @@ import { Lock, ArrowRight } from "lucide-react";
 import { O, DK, MU, BR, F } from "./tokens";
 import { LETTER_GROUPS } from "./letterGroups";
 import type { LetterGroup, LetterEntry } from "./types";
-import { Card } from "./App";
+import { Card } from "./ui";
 import { LetterPage } from "./LetterPage";
 
 function LetterDetailView({ group, onBack, onSelectLetter }: { group: LetterGroup; onBack: () => void; onSelectLetter: (l: LetterEntry) => void }) {
   return (
     <div style={{ display:"flex", flexDirection:"column" }}>
       <div style={{ background:DK, padding:"14px 20px", display:"flex", alignItems:"center", justifyContent:"space-between", cursor:"pointer" }} onClick={onBack}>
-        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-          <span style={{ color:O, fontSize:14 }}>■</span>
-          <span style={{ fontFamily:F.mono, fontSize:13, fontWeight:700, color:O, letterSpacing:"0.12em" }}>{group.label}</span>
-        </div>
+        <div style={{ display:"flex", alignItems:"center", gap:10 }}><span style={{ color:O, fontSize:14 }}>■</span><span style={{ fontFamily:F.mono, fontSize:13, fontWeight:700, color:O, letterSpacing:"0.12em" }}>{group.label}</span></div>
         <span style={{ fontFamily:F.mono, fontSize:12, color:O }}>0 / {group.letters.length}</span>
       </div>
       <div style={{ background:"#f9fafb", padding:"8px 20px", borderBottom:`1px solid ${BR}`, cursor:"pointer", display:"flex", alignItems:"center", gap:6 }} onClick={onBack}>
@@ -43,16 +40,11 @@ function LetterDetailView({ group, onBack, onSelectLetter }: { group: LetterGrou
 export function PracticeView() {
   const [selectedGroup, setSelectedGroup] = useState<LetterGroup|null>(null);
   const [selectedLetter, setSelectedLetter] = useState<LetterEntry|null>(null);
-
   if (selectedLetter && selectedGroup) {
     const idx = selectedGroup.letters.findIndex(l => l.arabic === selectedLetter.arabic);
-    const prevLetter = idx > 0 ? selectedGroup.letters[idx-1] : null;
-    const nextLetter = idx < selectedGroup.letters.length-1 ? selectedGroup.letters[idx+1] : null;
-    return <LetterPage letter={selectedLetter} group={selectedGroup} onBack={() => setSelectedLetter(null)} prevLetter={prevLetter} nextLetter={nextLetter} onSelectLetter={setSelectedLetter} />;
+    return <LetterPage letter={selectedLetter} group={selectedGroup} onBack={() => setSelectedLetter(null)} prevLetter={idx>0?selectedGroup.letters[idx-1]:null} nextLetter={idx<selectedGroup.letters.length-1?selectedGroup.letters[idx+1]:null} onSelectLetter={setSelectedLetter} />;
   }
-  if (selectedGroup) {
-    return <LetterDetailView group={selectedGroup} onBack={() => setSelectedGroup(null)} onSelectLetter={setSelectedLetter} />;
-  }
+  if (selectedGroup) return <LetterDetailView group={selectedGroup} onBack={() => setSelectedGroup(null)} onSelectLetter={setSelectedLetter} />;
   return (
     <div style={{ padding:"28px 20px", display:"flex", flexDirection:"column", gap:20 }}>
       <div>
@@ -72,16 +64,12 @@ export function PracticeView() {
         </div>
         {LETTER_GROUPS.map((g) => (
           <div key={g.num} onClick={() => g.available && setSelectedGroup(g)} style={{ display:"flex", alignItems:"center", padding:"13px 0", borderBottom:`1px solid ${BR}`, opacity:g.available?1:0.38, cursor:g.available?"pointer":"default" }}>
-            <div style={{ width:32, flexShrink:0 }}>
-              {g.available?<span style={{ fontFamily:F.mono, fontSize:13, fontWeight:700, color:DK }}>{g.num}</span>:<Lock size={13} color={MU} />}
-            </div>
+            <div style={{ width:32, flexShrink:0 }}>{g.available?<span style={{ fontFamily:F.mono, fontSize:13, fontWeight:700, color:DK }}>{g.num}</span>:<Lock size={13} color={MU} />}</div>
             <div style={{ flex:1, minWidth:0, paddingRight:12 }}>
               <div style={{ fontFamily:F.ui, fontSize:14, fontWeight:g.available?700:400, color:g.available?DK:MU, marginBottom:3 }}>Group {g.num}: {g.name}</div>
               <div style={{ fontFamily:F.mono, fontSize:11, color:MU }}>{g.trait}</div>
             </div>
-            <div style={{ display:"flex", gap:6, direction:"rtl", flexShrink:0 }}>
-              {g.letters.slice(0,4).map((l) => <span key={l.arabic} style={{ fontFamily:F.arabic, fontSize:20, color:g.available?DK:MU }}>{l.arabic}</span>)}
-            </div>
+            <div style={{ display:"flex", gap:6, direction:"rtl", flexShrink:0 }}>{g.letters.slice(0,4).map((l) => <span key={l.arabic} style={{ fontFamily:F.arabic, fontSize:20, color:g.available?DK:MU }}>{l.arabic}</span>)}</div>
           </div>
         ))}
       </Card>
